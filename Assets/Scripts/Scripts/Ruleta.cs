@@ -16,6 +16,8 @@ public class Ruleta : MonoBehaviour
     [SerializeField] TMP_Text textoMonedas;
     [SerializeField] TMP_Text textoResultado;
     [SerializeField] Transform ruletaTransform;
+    [Range(20f, 40f)]
+    [SerializeField] float largoLineaDeReferencia = 1.5f;
 
     [Header("Curvas de Animación para el giro")]
     [SerializeField] AnimationCurve[] curvasDeGiro;
@@ -39,6 +41,7 @@ public class Ruleta : MonoBehaviour
         }
     }
 
+    [ContextMenu("Girar ruleta")]
     public void Spin()
     {
         if (girando) return;
@@ -172,5 +175,11 @@ public class Ruleta : MonoBehaviour
         GuardarMonedas();
         Application.Quit();
         Debug.Log("El juego se ha cerrado.");
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(ruletaTransform.position, ruletaTransform.position + ruletaTransform.up * largoLineaDeReferencia);
     }
 }
